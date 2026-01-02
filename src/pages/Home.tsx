@@ -1,27 +1,33 @@
-import { useTranslation } from "react-i18next";
+import { useState, useEffect } from "react";
+import { useLocation } from "@tanstack/react-router";
 import type { FunctionComponent } from "../common/types";
+import FieldsListPage from "../routes/fields";
+import CropsListPage from "../routes/crops";
+import FieldWorksListPage from "../routes/field-works";
 
 export const Home = (): FunctionComponent => {
-	const { t, i18n } = useTranslation();
+	const [activeTab, setActiveTab] = useState<'fields' | 'crops' | 'field-works'>('fields');
+	const location = useLocation();
 
-	const onTranslateButtonClick = async (): Promise<void> => {
-		if (i18n.resolvedLanguage === "en") {
-			await i18n.changeLanguage("es");
+	// Определяем активную вкладку на основе URL
+	useEffect(() => {
+		const path = location.pathname;
+		if (path.startsWith('/fields')) {
+			setActiveTab('fields');
+		} else if (path.startsWith('/crops')) {
+			setActiveTab('crops');
+		} else if (path.startsWith('/field-works')) {
+			setActiveTab('field-works');
 		} else {
-			await i18n.changeLanguage("en");
+			setActiveTab('fields');
 		}
-	};
+	}, [location.pathname]);
 
 	return (
-		<div className="bg-blue-300 font-bold w-screen h-screen flex flex-col justify-center items-center">
-			<p className="text-white text-6xl">{t("home.greeting")}</p>
-			<button
-				className="hover:cursor-pointer"
-				type="submit"
-				onClick={onTranslateButtonClick}
-			>
-				translate
-			</button>
-		</div>
+		<>
+			{activeTab === 'fields' && <FieldsListPage />}
+			{activeTab === 'crops' && <CropsListPage />}
+			{activeTab === 'field-works' && <FieldWorksListPage />}
+		</>
 	);
 };

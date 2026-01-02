@@ -9,38 +9,174 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as FieldsRouteImport } from './routes/fields'
+import { Route as FieldWorksRouteImport } from './routes/field-works'
+import { Route as CropsRouteImport } from './routes/crops'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as FieldsNewRouteImport } from './routes/fields.new'
+import { Route as FieldsField_nameRouteImport } from './routes/fields/$field_name'
+import { Route as FieldWorksNewRouteImport } from './routes/field-works.new'
+import { Route as FieldWorksWork_idRouteImport } from './routes/field-works/$work_id'
+import { Route as CropsNewRouteImport } from './routes/crops.new'
+import { Route as CropsCrop_idRouteImport } from './routes/crops/$crop_id'
 
+const FieldsRoute = FieldsRouteImport.update({
+  id: '/fields',
+  path: '/fields',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FieldWorksRoute = FieldWorksRouteImport.update({
+  id: '/field-works',
+  path: '/field-works',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CropsRoute = CropsRouteImport.update({
+  id: '/crops',
+  path: '/crops',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FieldsNewRoute = FieldsNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => FieldsRoute,
+} as any)
+const FieldsField_nameRoute = FieldsField_nameRouteImport.update({
+  id: '/$field_name',
+  path: '/$field_name',
+  getParentRoute: () => FieldsRoute,
+} as any)
+const FieldWorksNewRoute = FieldWorksNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => FieldWorksRoute,
+} as any)
+const FieldWorksWork_idRoute = FieldWorksWork_idRouteImport.update({
+  id: '/$work_id',
+  path: '/$work_id',
+  getParentRoute: () => FieldWorksRoute,
+} as any)
+const CropsNewRoute = CropsNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => CropsRoute,
+} as any)
+const CropsCrop_idRoute = CropsCrop_idRouteImport.update({
+  id: '/$crop_id',
+  path: '/$crop_id',
+  getParentRoute: () => CropsRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/crops': typeof CropsRouteWithChildren
+  '/field-works': typeof FieldWorksRouteWithChildren
+  '/fields': typeof FieldsRouteWithChildren
+  '/crops/$crop_id': typeof CropsCrop_idRoute
+  '/crops/new': typeof CropsNewRoute
+  '/field-works/$work_id': typeof FieldWorksWork_idRoute
+  '/field-works/new': typeof FieldWorksNewRoute
+  '/fields/$field_name': typeof FieldsField_nameRoute
+  '/fields/new': typeof FieldsNewRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/crops': typeof CropsRouteWithChildren
+  '/field-works': typeof FieldWorksRouteWithChildren
+  '/fields': typeof FieldsRouteWithChildren
+  '/crops/$crop_id': typeof CropsCrop_idRoute
+  '/crops/new': typeof CropsNewRoute
+  '/field-works/$work_id': typeof FieldWorksWork_idRoute
+  '/field-works/new': typeof FieldWorksNewRoute
+  '/fields/$field_name': typeof FieldsField_nameRoute
+  '/fields/new': typeof FieldsNewRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/crops': typeof CropsRouteWithChildren
+  '/field-works': typeof FieldWorksRouteWithChildren
+  '/fields': typeof FieldsRouteWithChildren
+  '/crops/$crop_id': typeof CropsCrop_idRoute
+  '/crops/new': typeof CropsNewRoute
+  '/field-works/$work_id': typeof FieldWorksWork_idRoute
+  '/field-works/new': typeof FieldWorksNewRoute
+  '/fields/$field_name': typeof FieldsField_nameRoute
+  '/fields/new': typeof FieldsNewRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/crops'
+    | '/field-works'
+    | '/fields'
+    | '/crops/$crop_id'
+    | '/crops/new'
+    | '/field-works/$work_id'
+    | '/field-works/new'
+    | '/fields/$field_name'
+    | '/fields/new'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/crops'
+    | '/field-works'
+    | '/fields'
+    | '/crops/$crop_id'
+    | '/crops/new'
+    | '/field-works/$work_id'
+    | '/field-works/new'
+    | '/fields/$field_name'
+    | '/fields/new'
+  id:
+    | '__root__'
+    | '/'
+    | '/crops'
+    | '/field-works'
+    | '/fields'
+    | '/crops/$crop_id'
+    | '/crops/new'
+    | '/field-works/$work_id'
+    | '/field-works/new'
+    | '/fields/$field_name'
+    | '/fields/new'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CropsRoute: typeof CropsRouteWithChildren
+  FieldWorksRoute: typeof FieldWorksRouteWithChildren
+  FieldsRoute: typeof FieldsRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/fields': {
+      id: '/fields'
+      path: '/fields'
+      fullPath: '/fields'
+      preLoaderRoute: typeof FieldsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/field-works': {
+      id: '/field-works'
+      path: '/field-works'
+      fullPath: '/field-works'
+      preLoaderRoute: typeof FieldWorksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/crops': {
+      id: '/crops'
+      path: '/crops'
+      fullPath: '/crops'
+      preLoaderRoute: typeof CropsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +184,95 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/fields/new': {
+      id: '/fields/new'
+      path: '/new'
+      fullPath: '/fields/new'
+      preLoaderRoute: typeof FieldsNewRouteImport
+      parentRoute: typeof FieldsRoute
+    }
+    '/fields/$field_name': {
+      id: '/fields/$field_name'
+      path: '/$field_name'
+      fullPath: '/fields/$field_name'
+      preLoaderRoute: typeof FieldsField_nameRouteImport
+      parentRoute: typeof FieldsRoute
+    }
+    '/field-works/new': {
+      id: '/field-works/new'
+      path: '/new'
+      fullPath: '/field-works/new'
+      preLoaderRoute: typeof FieldWorksNewRouteImport
+      parentRoute: typeof FieldWorksRoute
+    }
+    '/field-works/$work_id': {
+      id: '/field-works/$work_id'
+      path: '/$work_id'
+      fullPath: '/field-works/$work_id'
+      preLoaderRoute: typeof FieldWorksWork_idRouteImport
+      parentRoute: typeof FieldWorksRoute
+    }
+    '/crops/new': {
+      id: '/crops/new'
+      path: '/new'
+      fullPath: '/crops/new'
+      preLoaderRoute: typeof CropsNewRouteImport
+      parentRoute: typeof CropsRoute
+    }
+    '/crops/$crop_id': {
+      id: '/crops/$crop_id'
+      path: '/$crop_id'
+      fullPath: '/crops/$crop_id'
+      preLoaderRoute: typeof CropsCrop_idRouteImport
+      parentRoute: typeof CropsRoute
+    }
   }
 }
 
+interface CropsRouteChildren {
+  CropsCrop_idRoute: typeof CropsCrop_idRoute
+  CropsNewRoute: typeof CropsNewRoute
+}
+
+const CropsRouteChildren: CropsRouteChildren = {
+  CropsCrop_idRoute: CropsCrop_idRoute,
+  CropsNewRoute: CropsNewRoute,
+}
+
+const CropsRouteWithChildren = CropsRoute._addFileChildren(CropsRouteChildren)
+
+interface FieldWorksRouteChildren {
+  FieldWorksWork_idRoute: typeof FieldWorksWork_idRoute
+  FieldWorksNewRoute: typeof FieldWorksNewRoute
+}
+
+const FieldWorksRouteChildren: FieldWorksRouteChildren = {
+  FieldWorksWork_idRoute: FieldWorksWork_idRoute,
+  FieldWorksNewRoute: FieldWorksNewRoute,
+}
+
+const FieldWorksRouteWithChildren = FieldWorksRoute._addFileChildren(
+  FieldWorksRouteChildren,
+)
+
+interface FieldsRouteChildren {
+  FieldsField_nameRoute: typeof FieldsField_nameRoute
+  FieldsNewRoute: typeof FieldsNewRoute
+}
+
+const FieldsRouteChildren: FieldsRouteChildren = {
+  FieldsField_nameRoute: FieldsField_nameRoute,
+  FieldsNewRoute: FieldsNewRoute,
+}
+
+const FieldsRouteWithChildren =
+  FieldsRoute._addFileChildren(FieldsRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CropsRoute: CropsRouteWithChildren,
+  FieldWorksRoute: FieldWorksRouteWithChildren,
+  FieldsRoute: FieldsRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
