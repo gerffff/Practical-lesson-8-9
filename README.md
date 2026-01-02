@@ -62,4 +62,3 @@ HTTP-запити при оновленні сторінки<br><br>
 Поля форм редагування не заповнювались автоматично при завантаженні даних з API. Для вирішення values в useForm замість reset в useEffect. Це дозволяє реактивно оновлювати форму при зміні даних<br>
 
 <img width="674" height="170" alt="image" src="https://github.com/user-attachments/assets/39d4e95b-4ade-44df-b17f-b6fd39084bcb" />
-
